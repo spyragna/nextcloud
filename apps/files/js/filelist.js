@@ -99,11 +99,6 @@
 		shown: false,
 
 		/**
-		 * @type boolean
-		 */
-		_defaultActionsEnabled: true,
-
-		/**
 		 * Number of files per page
 		 * Always show a minimum of 1
 		 *
@@ -134,6 +129,14 @@
 		 * @type OC.Files.FileInfo
 		 */
 		dirInfo: null,
+
+		/**
+		 * Whether to prevent or to execute the default file actions when the
+		 * file name is clicked.
+		 *
+		 * @type boolean
+		 */
+		_defaultFileActionsDisabled: false,
 
 		/**
 		 * File actions handler, defaults to OCA.Files.FileActions
@@ -295,6 +298,10 @@
 			if (_.isUndefined(options.detailsViewEnabled) || options.detailsViewEnabled) {
 				this._detailsView = new OCA.Files.DetailsView();
 				this._detailsView.$el.addClass('disappear');
+			}
+
+			if (options && options.defaultFileActionsDisabled) {
+				this._defaultFileActionsDisabled = options.defaultFileActionsDisabled
 			}
 
 			this._initFileActions(options.fileActions);
@@ -881,10 +888,9 @@
 				if (!this._detailsView || $(event.target).is('.nametext, .name, .thumbnail') || $(event.target).closest('.nametext').length) {
 					var filename = $tr.attr('data-file');
 					var renaming = $tr.data('renaming');
-					if (!this._defaultActionsEnabled) {
+					if (this._defaultFileActionsDisabled) {
 						event.preventDefault();
-					}
-					else if (!renaming) {
+					} else if (!renaming) {
 						this.fileActions.currentFile = $tr.find('td');
 						var mime = this.fileActions.getCurrentMimeType();
 						var type = this.fileActions.getCurrentType();
@@ -925,13 +931,6 @@
 					}
 				}
 			}
-		},
-
-		/**
-		 * Event handler when default action is enabled
-		 */
-		setDefaultActionsEnabled: function(enabled) {
-			this._defaultActionsEnabled = enabled
 		},
 
 		/**
