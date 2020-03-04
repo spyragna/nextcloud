@@ -9,6 +9,9 @@
 	<licence>agpl</licence>
 	<author>Christoph Wurst</author>
 	<namespace>ContactsInteraction</namespace>
+	<types>
+		<dav/>
+	</types>
 	<default_enable/>
 	<category>integration</category>
 	<category>social</category>
@@ -16,4 +19,9 @@
 	<dependencies>
 		<nextcloud min-version="19" max-version="19"/>
 	</dependencies>
+	<sabre>
+		<address-book-plugins>
+			<plugin>OCA\ContactsInteraction\AddressBookProvider</plugin>
+		</address-book-plugins>
+	</sabre>
 </info>

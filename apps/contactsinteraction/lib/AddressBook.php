@@ -26,13 +26,16 @@ declare(strict_types=1);
 namespace OCA\ContactsInteraction;
 
 use Exception;
-use OCP\Constants;
+use OCA\ContactsInteraction\AppInfo\Application;
+use OCA\DAV\CardDAV\Integration\ExternalAddressBook;
 use OCP\IL10N;
-use Sabre\CardDAV\IAddressBook;
-use Sabre\DAV\IProperties;
 use Sabre\DAV\PropPatch;
+use Sabre\DAVACL\ACLTrait;
+use Sabre\DAVACL\IACL;
 
-class AddressBook implements IAddressBook, IProperties {
+class AddressBook extends ExternalAddressBook implements IACL {
+
+	use ACLTrait;
 
 	/** @var Store */
 	private $store;
@@ -42,41 +45,16 @@ class AddressBook implements IAddressBook, IProperties {
 
 	public function __construct(Store $store,
 								IL10N $l10n) {
+		parent::__construct(Application::APP_ID, 'recent');
+
 		$this->store = $store;
 		$this->l10n = $l10n;
 	}
 
-	public function getKey() {
-		return 'recent';
-	}
-
-	public function getUri(): string {
-		return 'recent';
-	}
-
-	public function getDisplayName(): string {
-		return $this->l10n->t('Recent contacts');
-	}
-
 	/**
-	 * @param string $pattern
-	 * @param array $searchProperties
-	 * @param array $options
+	 * @inheritDoc
 	 */
-	public function search($pattern, $searchProperties, $options): array {
-		// TODO: Implement search() method.
-		return $this->store->search($pattern, $searchProperties);
-	}
-
-	public function createOrUpdate($properties): void {
-		throw new Exception("This addressbook is immutable");
-	}
-
-	public function getPermissions(): int {
-		return Constants::PERMISSION_READ;
-	}
-
-	public function delete($id): void {
+	public function delete(): void {
 		throw new Exception("This addressbook is immutable");
 	}
 
@@ -84,69 +62,67 @@ class AddressBook implements IAddressBook, IProperties {
 	 * @inheritDoc
 	 */
 	function createFile($name, $data = null) {
-		// TODO: Implement createFile() method.
+		throw new Exception("This addressbook is immutable");
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	function createDirectory($name) {
-		// TODO: Implement createDirectory() method.
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	function getChild($name) {
+	public function getChild($name) {
 		// TODO: Implement getChild() method.
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	function getChildren() {
-		// TODO: Implement getChildren() method.
+	public function getChildren(): array {
+		return [];
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	function childExists($name) {
+	public function childExists($name) {
 		// TODO: Implement childExists() method.
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	function getName() {
-		// TODO: Implement getName() method.
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	function setName($name) {
-		// TODO: Implement setName() method.
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	function getLastModified() {
+	public function getLastModified() {
 		// TODO: Implement getLastModified() method.
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	function propPatch(PropPatch $propPatch) {
-		// TODO: Implement propPatch() method.
+	public function propPatch(PropPatch $propPatch) {
+		throw new Exception("This addressbook is immutable");
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	function getProperties($properties) {
-		// TODO: Implement getProperties() method.
+	public function getProperties($properties) {
+		return [];
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getACL() {
+		return [
+			[
+				'privilege' => '{DAV:}read',
+				'principal' => $this->getOwner(),
+				'protected' => true,
+			],
+			[
+				'privilege' => '{DAV:}read',
+				'principal' => $this->getOwner() . '/calendar-proxy-read',
+				'protected' => true,
+			],
+		];
+	}
+
 }

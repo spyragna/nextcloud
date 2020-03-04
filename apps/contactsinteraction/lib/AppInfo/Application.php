@@ -25,20 +25,24 @@ declare(strict_types=1);
 
 namespace OCA\ContactsInteraction\AppInfo;
 
+use OCA\ContactsInteraction\AddressBook;
 use OCA\ContactsInteraction\Listeners\ContactInteractionListener;
+use OCA\ContactsInteraction\Store;
 use OCP\AppFramework\App;
+use OCP\AppFramework\IAppContainer;
 use OCP\Contacts\Events\ContactInteractedWithEvent;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\EventDispatcher\IEventListener;
+use OCP\IL10N;
 
 class Application extends App {
 
 	public const APP_ID = 'contactsinteraction';
 
-	public function __construct(array $urlParams = []) {
-		parent::__construct(self::APP_ID, $urlParams);
+	public function __construct() {
+		parent::__construct(self::APP_ID);
 
-		$this->registerListeners($this->getContainer()->query(IEventListener::class));
+		$this->registerListeners($this->getContainer()->query(IEventDispatcher::class));
 	}
 
 	private function registerListeners(IEventDispatcher $dispatcher): void {

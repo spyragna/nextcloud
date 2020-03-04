@@ -7,6 +7,7 @@ $baseDir = $vendorDir;
 
 return array(
     'OCA\\ContactsInteraction\\AddressBook' => $baseDir . '/../lib/AddressBook.php',
+    'OCA\\ContactsInteraction\\AddressBookProvider' => $baseDir . '/../lib/AddressBookProvider.php',
     'OCA\\ContactsInteraction\\AppInfo\\Application' => $baseDir . '/../lib/AppInfo/Application.php',
     'OCA\\ContactsInteraction\\Db\\RecentContact' => $baseDir . '/../lib/Db/RecentContact.php',
     'OCA\\ContactsInteraction\\Db\\RecentContactMapper' => $baseDir . '/../lib/Db/RecentContactMapper.php',
