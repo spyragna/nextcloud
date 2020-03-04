@@ -41,11 +41,12 @@
 
 namespace OCA\Files_Sharing\Controller;
 
-use OC\Security\CSP\ContentSecurityPolicy;
 use OC_Files;
 use OC_Util;
+use OC\Security\CSP\ContentSecurityPolicy;
 use OCA\FederatedFileSharing\FederatedShareProvider;
 use OCA\Files_Sharing\Activity\Providers\Downloads;
+use OCA\Viewer\Event\LoadViewer;
 use OCP\AppFramework\AuthPublicShareController;
 use OCP\AppFramework\Http\NotFoundResponse;
 use OCP\AppFramework\Http\Template\ExternalShareMenuAction;
@@ -54,6 +55,8 @@ use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCP\AppFramework\Http\Template\SimpleMenuAction;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Defaults;
+use OCP\EventDispatcher\GenericEvent;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
 use OCP\IConfig;
@@ -68,8 +71,6 @@ use OCP\Share;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager as ShareManager;
 use OCP\Template;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * Class ShareController
@@ -92,7 +93,7 @@ class ShareController extends AuthPublicShareController {
 	protected $rootFolder;
 	/** @var FederatedShareProvider */
 	protected $federatedShareProvider;
-	/** @var EventDispatcherInterface */
+	/** @var IEventDispatcher */
 	protected $eventDispatcher;
 	/** @var IL10N */
 	protected $l10n;
@@ -117,7 +118,7 @@ class ShareController extends AuthPublicShareController {
 	 * @param IPreview $previewManager
 	 * @param IRootFolder $rootFolder
 	 * @param FederatedShareProvider $federatedShareProvider
-	 * @param EventDispatcherInterface $eventDispatcher
+	 * @param IEventDispatcher $eventDispatcher
 	 * @param IL10N $l10n
 	 * @param Defaults $defaults
 	 */
@@ -133,7 +134,7 @@ class ShareController extends AuthPublicShareController {
 								IPreview $previewManager,
 								IRootFolder $rootFolder,
 								FederatedShareProvider $federatedShareProvider,
-								EventDispatcherInterface $eventDispatcher,
+								IEventDispatcher $eventDispatcher,
 								IL10N $l10n,
 								Defaults $defaults) {
 		parent::__construct($appName, $request, $session, $urlGenerator);
@@ -370,6 +371,7 @@ class ShareController extends AuthPublicShareController {
 			$maxUploadFilesize = $freeSpace;
 
 			$folder = new Template('files', 'list', '');
+
 			$folder->assign('dir', $shareNode->getRelativePath($folderNode->getPath()));
 			$folder->assign('dirToken', $this->getToken());
 			$folder->assign('permissions', \OCP\Constants::PERMISSION_READ);
@@ -452,6 +454,8 @@ class ShareController extends AuthPublicShareController {
 			\OCP\Util::addScript('files', 'filelist');
 			\OCP\Util::addScript('files', 'keyboardshortcuts');
 			\OCP\Util::addScript('files', 'operationprogressbar');
+
+			$this->eventDispatcher->dispatch(LoadViewer::class, new LoadViewer());
 		}
 
 		// OpenGraph Support: http://ogp.me/
