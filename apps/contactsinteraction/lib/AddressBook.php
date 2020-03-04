@@ -27,10 +27,12 @@ namespace OCA\ContactsInteraction;
 
 use Exception;
 use OCP\Constants;
-use OCP\IAddressBook;
 use OCP\IL10N;
+use Sabre\CardDAV\IAddressBook;
+use Sabre\DAV\IProperties;
+use Sabre\DAV\PropPatch;
 
-class AddressBook implements IAddressBook {
+class AddressBook implements IAddressBook, IProperties {
 
 	/** @var Store */
 	private $store;
@@ -78,4 +80,73 @@ class AddressBook implements IAddressBook {
 		throw new Exception("This addressbook is immutable");
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	function createFile($name, $data = null) {
+		// TODO: Implement createFile() method.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function createDirectory($name) {
+		// TODO: Implement createDirectory() method.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function getChild($name) {
+		// TODO: Implement getChild() method.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function getChildren() {
+		// TODO: Implement getChildren() method.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function childExists($name) {
+		// TODO: Implement childExists() method.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function getName() {
+		// TODO: Implement getName() method.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function setName($name) {
+		// TODO: Implement setName() method.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function getLastModified() {
+		// TODO: Implement getLastModified() method.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function propPatch(PropPatch $propPatch) {
+		// TODO: Implement propPatch() method.
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function getProperties($properties) {
+		// TODO: Implement getProperties() method.
+	}
 }
