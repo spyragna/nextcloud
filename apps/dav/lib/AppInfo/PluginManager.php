@@ -142,6 +142,7 @@ class PluginManager {
 	 */
 	private function populate() {
 		$this->plugins = [];
+		$this->addressBookPlugins = [];
 		$this->calendarPlugins = [];
 		$this->collections = [];
 		foreach ($this->appManager->getInstalledApps() as $app) {
@@ -269,13 +270,16 @@ class PluginManager {
 	 * @param string[] $plugin
 	 */
 	private function loadSabreAddressBookPluginsFromInfoXml(array $plugins): void {
-		$this->addressBookPlugins = array_map(function(string $className): IAddressBookProvider {
+		$providers = array_map(function(string $className): IAddressBookProvider {
 			$instance = $this->createPluginInstance($className);
 			if (!($instance instanceof IAddressBookProvider)) {
 				throw new \Exception("Sabre address book plugin class '$className' does not implement the \OCA\DAV\CardDAV\Integration\IAddressBookProvider interface");
 			}
 			return $instance;
 		}, $plugins);
+		foreach ($providers as $provider) {
+			$this->addressBookPlugins[] = $provider;
+		}
 	}
 
 	private function loadSabreCalendarPluginsFromInfoXml(array $calendarPlugins):void {
