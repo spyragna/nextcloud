@@ -75,7 +75,7 @@ class AddressBookProvider implements IAddressBookProvider {
 	 */
 	public function fetchAllForAddressBookHome(string $principalUri): array {
 		return [
-			new AddressBook($this->store, $this->l10n)
+			new AddressBook($this->store, $this->l10n, $principalUri)
 		];
 	}
 

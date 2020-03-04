@@ -27,13 +27,16 @@ namespace OCA\ContactsInteraction;
 
 use Exception;
 use OCA\ContactsInteraction\AppInfo\Application;
+use OCA\ContactsInteraction\Db\RecentContact;
 use OCA\DAV\CardDAV\Integration\ExternalAddressBook;
+use OCA\DAV\DAV\Sharing\IShareable;
 use OCP\IL10N;
+use Sabre\DAV\Exception\NotImplemented;
 use Sabre\DAV\PropPatch;
 use Sabre\DAVACL\ACLTrait;
 use Sabre\DAVACL\IACL;
 
-class AddressBook extends ExternalAddressBook implements IACL {
+class AddressBook extends ExternalAddressBook implements IACL, IShareable {
 
 	use ACLTrait;
 
@@ -43,12 +46,17 @@ class AddressBook extends ExternalAddressBook implements IACL {
 	/** @var IL10N */
 	private $l10n;
 
+	/** @var string */
+	private $principalUri;
+
 	public function __construct(Store $store,
-								IL10N $l10n) {
+								IL10N $l10n,
+								string $principalUri) {
 		parent::__construct(Application::APP_ID, 'recent');
 
 		$this->store = $store;
 		$this->l10n = $l10n;
+		$this->principalUri = $principalUri;
 	}
 
 	/**
@@ -70,13 +78,23 @@ class AddressBook extends ExternalAddressBook implements IACL {
 	 */
 	public function getChild($name) {
 		// TODO: Implement getChild() method.
+		throw new NotImplemented();
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getChildren(): array {
-		return [];
+		return [
+			new Card(
+				RecentContact::fromParams([
+					'id' => 13,
+					'email' => 'test@domain.com',
+				]),
+				$this->principalUri,
+				$this->getACL()
+			)
+		];
 	}
 
 	/**
@@ -84,6 +102,7 @@ class AddressBook extends ExternalAddressBook implements IACL {
 	 */
 	public function childExists($name) {
 		// TODO: Implement childExists() method.
+		throw new NotImplemented();
 	}
 
 	/**
@@ -91,6 +110,7 @@ class AddressBook extends ExternalAddressBook implements IACL {
 	 */
 	public function getLastModified() {
 		// TODO: Implement getLastModified() method.
+		throw new NotImplemented();
 	}
 
 	/**
@@ -104,7 +124,14 @@ class AddressBook extends ExternalAddressBook implements IACL {
 	 * @inheritDoc
 	 */
 	public function getProperties($properties) {
-		return [];
+		return [
+			'principaluri' => $this->principalUri,
+			'{DAV:}displayname' => $this->l10n->t('Recently contacted'),
+		];
+	}
+
+	public function getOwner(): string {
+		return $this->principalUri;
 	}
 
 	/**
@@ -123,6 +150,27 @@ class AddressBook extends ExternalAddressBook implements IACL {
 				'protected' => true,
 			],
 		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function updateShares(array $add, array $remove) {
+		throw new NotImplemented();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	function getShares() {
+		return [];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getResourceId() {
+		throw new NotImplemented();
 	}
 
 }
