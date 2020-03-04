@@ -29,25 +29,25 @@ interface IAddressBookProvider {
 	public function fetchAllForAddressBookHome(string $principalUri): array;
 
 	/**
-	 * Checks whether plugin has a calendar for a given principalUri and calendarUri
+	 * Checks whether plugin has an address book for a given principalUri and URI
 	 *
 	 * @since 19.0.0
 	 * @param string $principalUri E.g. principals/users/user1
-	 * @param string $calendarUri E.g. personal
-	 * @return bool True if calendar for principalUri and calendarUri exists, false otherwise
+	 * @param string $uri E.g. personal
+	 * @return bool True if address book for principalUri and URI exists, false otherwise
 	 */
-	public function hasAddressBookInCalendarHome(string $principalUri, string $calendarUri): bool;
+	public function hasAddressBookInAddressBookHome(string $principalUri, string $uri): bool;
 
 	/**
-	 * Fetches a calendar for a given principalUri and calendarUri
-	 * Returns null if calendar does not exist
+	 * Fetches an address book for a given principalUri and URI
+	 * Returns null if address book does not exist
 	 *
 	 * @param string $principalUri E.g. principals/users/user1
-	 * @param string $calendarUri E.g. personal
+	 * @param string $uri E.g. personal
 	 *
-	 * @return ExternalAddressBook|null Calendar if it exists, null otherwise
+	 * @return ExternalAddressBook|null address book if it exists, null otherwise
 	 *@since 19.0.0
 	 */
-	public function getAddressBookInCalendarHome(string $principalUri, string $calendarUri): ?ExternalAddressBook;
+	public function getAddressBookInAddressBookHome(string $principalUri, string $uri): ?ExternalAddressBook;
 
 }
