@@ -23,7 +23,7 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OC\Contacts\Interaction\Db;
+namespace OCA\ContactsInteraction\Db;
 
 use OCP\AppFramework\Db\Entity;
 use OCP\Contacts\Events\ContactInteractedWithEvent;

@@ -38,15 +38,10 @@ use OC\Authentication\Listeners\RemoteWipeEmailListener;
 use OC\Authentication\Listeners\RemoteWipeNotificationsListener;
 use OC\Authentication\Listeners\UserDeletedStoreCleanupListener;
 use OC\Authentication\Notifications\Notifier as AuthenticationNotifier;
-use OC\Contacts\Interaction\AddressBook;
-use OC\Contacts\Interaction\Listeners\ContactInteractionListener;
-use OC\Contacts\Interaction\Service\Store;
 use OC\Core\Notification\RemoveLinkSharesNotifier;
 use OC\DB\MissingIndexInformation;
 use OC\DB\SchemaWrapper;
 use OCP\AppFramework\App;
-use OCP\Contacts\Events\ContactInteractedWithEvent;
-use OCP\Contacts\IManager;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IDBConnection;
 use OCP\IServerContainer;
@@ -173,7 +168,6 @@ class Application extends App {
 			}
 		);
 
-		$eventDispatcher->addServiceListener(ContactInteractedWithEvent::class, ContactInteractionListener::class);
 		$eventDispatcher->addServiceListener(RemoteWipeStarted::class, RemoteWipeActivityListener::class);
 		$eventDispatcher->addServiceListener(RemoteWipeStarted::class, RemoteWipeNotificationsListener::class);
 		$eventDispatcher->addServiceListener(RemoteWipeStarted::class, RemoteWipeEmailListener::class);
@@ -181,13 +175,6 @@ class Application extends App {
 		$eventDispatcher->addServiceListener(RemoteWipeFinished::class, RemoteWipeNotificationsListener::class);
 		$eventDispatcher->addServiceListener(RemoteWipeFinished::class, RemoteWipeEmailListener::class);
 		$eventDispatcher->addServiceListener(UserDeletedEvent::class, UserDeletedStoreCleanupListener::class);
-
-		/** @var IManager $contactsManager */
-		$contactsManager = $container->query(IManager::class);
-		$contactsManager->registerAddressBook(new AddressBook(
-			$container->query(Store::class),
-			$container->getServer()->getL10N('lib')
-		));
 	}
 
 }

@@ -23,10 +23,9 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OC\Contacts\Interaction;
+namespace OCA\ContactsInteraction;
 
 use Exception;
-use OC\Contacts\Interaction\Service\Store;
 use OCP\Constants;
 use OCP\IAddressBook;
 use OCP\IL10N;

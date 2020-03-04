@@ -5,6 +5,7 @@
     "admin_audit",
     "cloud_federation_api",
     "comments",
+    "contactsinteraction",
     "dav",
     "encryption",
     "federatedfilesharing",
@@ -45,6 +46,7 @@
   "alwaysEnabled": [
     "files",
     "cloud_federation_api",
+    "contactsinteraction",
     "dav",
     "federatedfilesharing",
     "lookup_server_connector",

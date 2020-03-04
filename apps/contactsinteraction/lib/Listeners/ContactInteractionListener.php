@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 /**
- * @copyright 2019 Christoph Wurst <christoph@winzerhof-wurst.at>
+ * @copyright 2020 Christoph Wurst <christoph@winzerhof-wurst.at>
  *
- * @author 2019 Christoph Wurst <christoph@winzerhof-wurst.at>
+ * @author 2020 Christoph Wurst <christoph@winzerhof-wurst.at>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -23,10 +23,10 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OC\Contacts\Interaction\Listeners;
+namespace OCA\ContactsInteraction\Listeners;
 
-use OC\Contacts\Interaction\Db\RecentContact;
-use OC\Contacts\Interaction\Service\Store;
+use OCA\ContactsInteraction\Db\RecentContact;
+use OCA\ContactsInteraction\Store;
 use OCP\Contacts\Events\ContactInteractedWithEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;

@@ -23,34 +23,26 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OC\Contacts\Interaction\Service;
+namespace OCA\ContactsInteraction\AppInfo;
 
-use OC\Contacts\Interaction\Db\RecentContact;
-use OC\Contacts\Interaction\Db\RecentContactMapper;
-use OCP\ILogger;
+use OCA\ContactsInteraction\Listeners\ContactInteractionListener;
+use OCP\AppFramework\App;
+use OCP\Contacts\Events\ContactInteractedWithEvent;
+use OCP\EventDispatcher\IEventDispatcher;
+use OCP\EventDispatcher\IEventListener;
 
-class Store {
+class Application extends App {
 
-	/** @var RecentContactMapper */
-	private $mapper;
+	public const APP_ID = 'contactsinteraction';
 
-	/** @var ILogger */
-	private $logger;
+	public function __construct(array $urlParams = []) {
+		parent::__construct(self::APP_ID, $urlParams);
 
-	public function __construct(RecentContactMapper $mapper,
-								ILogger $logger) {
-		$this->mapper = $mapper;
-		$this->logger = $logger;
+		$this->registerListeners($this->getContainer()->query(IEventListener::class));
 	}
 
-	public function import(RecentContact $contact): void {
-		$this->mapper->insert($contact);
-	}
-
-	public function search(string $pattern, array $properties): array {
-		return [
-			['id' => 13, 'FN' => '', 'EMAIL' => 'a@b.c'],
-		];
+	private function registerListeners(IEventDispatcher $dispatcher): void {
+		$dispatcher->addServiceListener(ContactInteractedWithEvent::class, ContactInteractionListener::class);
 	}
 
 }
