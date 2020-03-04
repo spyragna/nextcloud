@@ -642,9 +642,8 @@ a.action > img {
 }
 
 #fileList tr:hover a.action.disabled:hover * {
-	cursor: default;
+	cursor: default !important;
 }
-
 .summary {
 	opacity: .3;
 	/* add whitespace to bottom of files list to correctly show dropdowns */
