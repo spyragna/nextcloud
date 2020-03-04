@@ -29,6 +29,7 @@ OC.L10N.register(
     "Check %s is invalid or does not exist" : "Tarkistus %s on virheellinen tai sitä ei ole olemassa",
     "Nextcloud workflow engine" : "Nextcloudin työnkulkumoottori",
     "Select a file type" : "Valitse tiedostotyyppi",
+    "Folder" : "Kansio",
     "Images" : "Kuvat",
     "Office documents" : "Toimisto-ohjelmistojen asiakirjat",
     "PDF documents" : "PDF-asiakirjat",
@@ -91,10 +92,9 @@ OC.L10N.register(
     "End" : "Loppu",
     "Select timezone…" : "Valitse aikavyöhyke...",
     "Sync clients" : "Synkronointisovellukset",
-    "Workflow" : "Työnkulku",
+    "Tag management" : "Tunnisteiden hallinta",
     "Files workflow engine" : "Tiedostojen työnkulkumoottori",
     "Open documentation" : "Avaa dokumentaatio",
-    "Loading…" : "Ladataan…",
-    "Tag management" : "Tunnisteiden hallinta"
+    "Loading…" : "Ladataan…"
 },
 "nplurals=2; plural=(n != 1);");

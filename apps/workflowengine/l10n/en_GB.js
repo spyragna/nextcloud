@@ -20,6 +20,7 @@ OC.L10N.register(
     "Check %s is invalid" : "Check %s is invalid",
     "Check #%s does not exist" : "Check #%s does not exist",
     "Check %s is invalid or does not exist" : "Check %s is invalid or does not exist",
+    "Folder" : "Folder",
     "Images" : "Images",
     "No results" : "No results",
     "%s (invisible)" : "%s (invisible)",
@@ -76,10 +77,9 @@ OC.L10N.register(
     "End" : "End",
     "Select timezone…" : "Select timezone…",
     "Sync clients" : "Sync clients",
-    "Workflow" : "Workflow",
+    "Tag management" : "Tag management",
     "Files workflow engine" : "Files workflow engine",
     "Open documentation" : "Open documentation",
-    "Loading…" : "Loading…",
-    "Tag management" : "Tag management"
+    "Loading…" : "Loading…"
 },
 "nplurals=2; plural=(n != 1);");

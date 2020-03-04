@@ -353,11 +353,9 @@ class Setup {
 
 		$this->config->setValues($newConfigValues);
 
+		$dbSetup->initialize($options);
 		try {
-			$dbSetup->initialize($options);
 			$dbSetup->setupDatabase($username);
-			// apply necessary migrations
-			$dbSetup->runMigrations();
 		} catch (\OC\DatabaseSetupException $e) {
 			$error[] = [
 				'error' => $e->getMessage(),
@@ -367,6 +365,16 @@ class Setup {
 		} catch (Exception $e) {
 			$error[] = [
 				'error' => 'Error while trying to create admin user: ' . $e->getMessage(),
+				'hint' => '',
+			];
+			return $error;
+		}
+		try {
+			// apply necessary migrations
+			$dbSetup->runMigrations();
+		} catch (Exception $e) {
+			$error[] = [
+				'error' => 'Error while trying to initialise the database: ' . $e->getMessage(),
 				'hint' => '',
 			];
 			return $error;
@@ -520,7 +528,7 @@ class Setup {
 			$content .= "\n  Options -MultiViews";
 			$content .= "\n  RewriteRule ^core/js/oc.js$ index.php [PT,E=PATH_INFO:$1]";
 			$content .= "\n  RewriteRule ^core/preview.png$ index.php [PT,E=PATH_INFO:$1]";
-			$content .= "\n  RewriteCond %{REQUEST_FILENAME} !\\.(css|js|svg|gif|png|html|ttf|woff2?|ico|jpg|jpeg|map)$";
+			$content .= "\n  RewriteCond %{REQUEST_FILENAME} !\\.(css|js|svg|gif|png|html|ttf|woff2?|ico|jpg|jpeg|map|webm|mp4)$";
 			$content .= "\n  RewriteCond %{REQUEST_FILENAME} !core/img/favicon.ico$";
 			$content .= "\n  RewriteCond %{REQUEST_FILENAME} !core/img/manifest.json$";
 			$content .= "\n  RewriteCond %{REQUEST_FILENAME} !/remote.php";
@@ -573,7 +581,7 @@ class Setup {
 		$content .= "    <IfModule mod_authz_host.c>\n";
 		$content .= "      Order Allow,Deny\n";
 		$content .= "      Deny from all\n";
-		$content .= "    <IifModule>\n";
+		$content .= "    </IfModule>\n";
 		$content .= "    Satisfy All\n";
 		$content .= "  </IfModule>\n";
 		$content .= "</IfModule>\n\n";

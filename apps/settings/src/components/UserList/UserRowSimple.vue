@@ -46,7 +46,7 @@
 			<div v-if="showConfig.showUserBackend" class="userBackend">
 				{{ user.backend }}
 			</div>
-			<div v-if="showConfig.showStoragePath" class="storageLocation subtitle">
+			<div v-if="showConfig.showStoragePath" v-tooltip="user.storageLocation" class="storageLocation subtitle">
 				{{ user.storageLocation }}
 			</div>
 		</div>
@@ -61,9 +61,11 @@
 						{{ t('settings', 'Edit User') }}
 					</ActionButton>
 				</Actions>
-				<div v-click-outside="hideMenu" class="icon-more" @click="$emit('toggleMenu')" />
-				<div class="popovermenu" :class="{ 'open': openedMenu }">
-					<PopoverMenu :menu="userActions" />
+				<div class="userPopoverMenuWrapper">
+					<div v-click-outside="hideMenu" class="icon-more" @click="$emit('toggleMenu')" />
+					<div class="popovermenu" :class="{ 'open': openedMenu }">
+						<PopoverMenu :menu="userActions" />
+					</div>
 				</div>
 			</div>
 			<div class="feedback" :style="{opacity: feedbackMessage !== '' ? 1 : 0}">
@@ -75,7 +77,7 @@
 </template>
 
 <script>
-import { PopoverMenu, Actions, ActionButton } from 'nextcloud-vue'
+import { PopoverMenu, Actions, ActionButton } from '@nextcloud/vue'
 import ClickOutside from 'vue-click-outside'
 import { getCurrentUser } from '@nextcloud/auth'
 

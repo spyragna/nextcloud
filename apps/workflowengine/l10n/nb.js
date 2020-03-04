@@ -20,6 +20,7 @@ OC.L10N.register(
     "Check %s is invalid" : "Sjekk %s er ugyldig",
     "Check #%s does not exist" : "Sjekk #%s finnes ikke",
     "Check %s is invalid or does not exist" : "Sjekk %s er ugyldig eller finnes ikke",
+    "Folder" : "Mappe",
     "Images" : "Bilder",
     "No results" : "Ingen resultater",
     "%s (invisible)" : "%s (usynlig)",
@@ -76,10 +77,9 @@ OC.L10N.register(
     "End" : "Slutt",
     "Select timezone…" : "Velg tidssone…",
     "Sync clients" : "Synkroniseringsklienter",
-    "Workflow" : "Arbeidsflyt",
+    "Tag management" : "Merkelapphåndtering",
     "Files workflow engine" : "Arbeidsflytmotor for filer",
     "Open documentation" : "Åpne dokumentasjonen",
-    "Loading…" : "Laster…",
-    "Tag management" : "Merkelapphåndtering"
+    "Loading…" : "Laster…"
 },
 "nplurals=2; plural=(n != 1);");

@@ -8,14 +8,12 @@ OC.L10N.register(
     "Accessibility" : "נגישות",
     "Accessibility options for nextcloud" : "אפשרויות נגישות ל־Nextcloud",
     "Provides multiple accessibilities options to ease your use of Nextcloud" : "מספק מגוון אפשרויות נגישות כדי להקל את השימוש שלך ב‏־Nextcloud",
-    "Web Content Accessibility Guidelines" : "קווים מנחים לנגישות בתוכן מקוון",
-    "our issue tracker" : "עוקב התקלות שלנו",
-    "our design team" : "צוות העיצוב שלנו",
-    "Enable" : "הפעלה",
     "High contrast theme" : "ערכת נושא עם ניגודיות גבוהה",
     "A high contrast theme to ease your navigation. Visual quality will be reduced but clarity will be increased." : "ערכת נושא עם צבעים מנוגדים להקלה על הניווט שלך. האיכות החזותית תיפגע אך השימוש יהפוך ברור יותר.",
     "Dark theme (beta)" : "ערכת נושא כהה (בטא)",
-    "Themes" : "ערכות נושא",
-    "Fonts" : "גופנים"
+    "Web Content Accessibility Guidelines" : "קווים מנחים לנגישות בתוכן מקוון",
+    "our issue tracker" : "עוקב התקלות שלנו",
+    "our design team" : "צוות העיצוב שלנו",
+    "Enable" : "הפעלה"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");

@@ -57,6 +57,7 @@
     "Could not create file \"{file}\"" : "No se pudo crear archivo \"{file}\"",
     "Could not create file \"{file}\" because it already exists" : "No se pudo crear archivo \"{file}\" porque ya existe",
     "Could not create folder \"{dir}\" because it already exists" : "No se ha podido crear la carpeta \"{dir}\" porque ya existe",
+    "Could not fetch file details \"{file}\"" : "No se pudieron obtener los detalles de \"{file}\"",
     "Error deleting file \"{fileName}\"." : "Error al borrar el archivo \"{fileName}\".",
     "No search results in other folders for {tag}{filter}{endtag}" : "No hay resultados de búsqueda en otras carpetas para  {tag}{filter}{endtag}",
     "Name" : "Nombre",
@@ -183,13 +184,6 @@
     "Pending shares" : "Recursos compartidos pendientes",
     "Text file" : "Archivo de texto",
     "New text file.txt" : "Nuevo archivo.txt",
-    "File handling" : "Manejo de archivos",
-    "Maximum upload size" : "Tamaño máximo de subida",
-    "max. possible: " : "máx. posible: ",
-    "Save" : "Guardar",
-    "With PHP-FPM it might take 5 minutes for changes to be applied." : "Con PHP-FPM podría tardar hasta 5 minutos en realizarse los cambios.",
-    "Missing permissions to edit from here." : "Faltan permisos para poder editar desde aquí.",
-    "Cancel upload" : "Cancelar subida",
     "%s of %s used" : "%s de %s usado",
     "%1$s%% of %2$s used" : "%1$s %% de %2$s usados"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

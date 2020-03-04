@@ -10,17 +10,12 @@ OC.L10N.register(
     "Accessibility" : "Aukið aðgengi",
     "Accessibility options for nextcloud" : "Valkostir fyrir auðveldað aðgengi í Nextcloud",
     "Provides multiple accessibilities options to ease your use of Nextcloud" : "Býður upp á marga valkosti fyrir auðveldað aðgengi í Nextcloud",
-    "Web Content Accessibility Guidelines" : "Leiðbeiningar fyrir aukið aðgengi vefefnis",
-    "our issue tracker" : "villuskráningin okkar",
-    "our design team" : "hönnunarteymið okkar",
-    "Enable" : "Virkja",
     "High contrast theme" : "Þema með mikil birtuskil",
     "A high contrast theme to ease your navigation. Visual quality will be reduced but clarity will be increased." : "Þema með mikil birtuskil til að auðvelda vafur. Sjónræn gæði minnka en skýrleiki eykst",
     "Dark theme (beta)" : "Dökkt þema (beta-prófunarútgáfa)",
-    "OpenDyslexic is a free typeface/font designed to mitigate some of the common reading errors caused by dyslexia. The typeface was created by Abelardo Gonzalez, who released it through an open-source license." : "OpenDyslexic eru frjálsar leturgerðir sem eru hannaðar til að ráða bug á eða minnka vægi ýmissa villna sem stafa af lesblindu (dyslexia). Letrið var hannað afAbelardo Gonzalez, sem gaf það út undir frjálsu notkunarleyfi.",
-    "Provides multiple accessibilities options to ease your use of nextcloud" : "Býður upp á marga valkosti fyrir auðveldað aðgengi í Nextcloud",
-    "Themes" : "Þemu",
-    "Fonts" : "Letur",
-    "enabled" : "virkt"
+    "Web Content Accessibility Guidelines" : "Leiðbeiningar fyrir aukið aðgengi vefefnis",
+    "our issue tracker" : "villuskráningin okkar",
+    "our design team" : "hönnunarteymið okkar",
+    "Enable" : "Virkja"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

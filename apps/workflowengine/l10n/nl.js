@@ -48,6 +48,7 @@ OC.L10N.register(
     "Select a comparator" : "Selecteer een comparator",
     "Select a file type" : "Selecteer een bestandstype",
     "e.g. httpd/unix-directory" : "bijv. httpd/unix-directory",
+    "Folder" : "Map",
     "Images" : "Afbeeldingen",
     "Office documents" : "Office documenten",
     "PDF documents" : "PDF documenten",
@@ -127,10 +128,9 @@ OC.L10N.register(
     "End" : "Einde",
     "Select timezone…" : "Selecteer tijdzone...",
     "Sync clients" : "Synchroniseer clients",
-    "Workflow" : "Workflows",
+    "Tag management" : "Tagbeheer",
     "Files workflow engine" : "Betanden workflow engine",
     "Open documentation" : "Open documentatie",
-    "Loading…" : "Laden...",
-    "Tag management" : "Tagbeheer"
+    "Loading…" : "Laden..."
 },
 "nplurals=2; plural=(n != 1);");

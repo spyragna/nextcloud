@@ -48,6 +48,7 @@ OC.L10N.register(
     "Select a comparator" : "Seleccione un comparador",
     "Select a file type" : "Seleccione un tipo de ficheiro",
     "e.g. httpd/unix-directory" : "p. ex.: httpd/unix-directory",
+    "Folder" : "Cartafol",
     "Images" : "Imaxes",
     "Office documents" : "Documentos de oficina",
     "PDF documents" : "Documentos PDF",
@@ -127,10 +128,9 @@ OC.L10N.register(
     "End" : "Final",
     "Select timezone…" : "Seleccionar o fuso horario…",
     "Sync clients" : "Sincronizar clientes",
-    "Workflow" : "Fluxo de traballo",
+    "Tag management" : "Xestión de etiquetas",
     "Files workflow engine" : "Motor de fluxo de traballo de ficheiros",
     "Open documentation" : "Abrir a documentación",
-    "Loading…" : "Cargando…",
-    "Tag management" : "Xestión de etiquetas"
+    "Loading…" : "Cargando…"
 },
 "nplurals=2; plural=(n != 1);");

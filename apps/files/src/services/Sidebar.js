@@ -56,42 +56,23 @@ export default class Sidebar {
 	 * @returns {Boolean}
 	 */
 	registerTab(tab) {
-		const hasDuplicate = this.#state.tabs.findIndex(check => check.name === tab.name) > -1
+		const hasDuplicate = this.#state.tabs.findIndex(check => check.id === tab.id) > -1
 		if (!hasDuplicate) {
 			this.#state.tabs.push(tab)
 			return true
 		}
-		console.error(`An tab with the same name ${tab.name} already exists`, tab)
+		console.error(`An tab with the same id ${tab.id} already exists`, tab)
 		return false
 	}
 
 	registerSecondaryView(view) {
-		const hasDuplicate = this.#state.views.findIndex(check => check.name === view.name) > -1
+		const hasDuplicate = this.#state.views.findIndex(check => check.id === view.id) > -1
 		if (!hasDuplicate) {
 			this.#state.views.push(view)
 			return true
 		}
 		console.error(`A similar view already exists`, view)
 		return false
-	}
-
-	/**
-	 * Open the sidebar for the given file
-	 *
-	 * @memberof Sidebar
-	 * @param {string} path the file path to load
-	 */
-	open(path) {
-		this.#state.file = path
-	}
-
-	/**
-	 * Close the sidebar
-	 *
-	 * @memberof Sidebar
-	 */
-	close() {
-		this.#state.file = ''
 	}
 
 	/**

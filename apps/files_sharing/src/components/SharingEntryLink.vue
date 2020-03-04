@@ -298,17 +298,18 @@
 <script>
 import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
+import Vue from 'vue'
 
-import ActionButton from 'nextcloud-vue/dist/Components/ActionButton'
-import ActionCheckbox from 'nextcloud-vue/dist/Components/ActionCheckbox'
-import ActionRadio from 'nextcloud-vue/dist/Components/ActionRadio'
-import ActionInput from 'nextcloud-vue/dist/Components/ActionInput'
-import ActionText from 'nextcloud-vue/dist/Components/ActionText'
-import ActionTextEditable from 'nextcloud-vue/dist/Components/ActionTextEditable'
-import ActionLink from 'nextcloud-vue/dist/Components/ActionLink'
-import Actions from 'nextcloud-vue/dist/Components/Actions'
-import Avatar from 'nextcloud-vue/dist/Components/Avatar'
-import Tooltip from 'nextcloud-vue/dist/Directives/Tooltip'
+import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
+import ActionCheckbox from '@nextcloud/vue/dist/Components/ActionCheckbox'
+import ActionRadio from '@nextcloud/vue/dist/Components/ActionRadio'
+import ActionInput from '@nextcloud/vue/dist/Components/ActionInput'
+import ActionText from '@nextcloud/vue/dist/Components/ActionText'
+import ActionTextEditable from '@nextcloud/vue/dist/Components/ActionTextEditable'
+import ActionLink from '@nextcloud/vue/dist/Components/ActionLink'
+import Actions from '@nextcloud/vue/dist/Components/Actions'
+import Avatar from '@nextcloud/vue/dist/Components/Avatar'
+import Tooltip from '@nextcloud/vue/dist/Directives/Tooltip'
 
 import Share from '../models/Share'
 import SharesMixin from '../mixins/SharesMixin'
@@ -423,8 +424,8 @@ export default {
 			},
 			set: async function(enabled) {
 				// TODO: directly save after generation to make sure the share is always protected
-				this.share.password = enabled ? await this.generatePassword() : ''
-				this.share.newPassword = this.share.password
+				Vue.set(this.share, 'password', enabled ? await this.generatePassword() : '')
+				Vue.set(this.share, 'newPassword', this.share.password)
 			},
 		},
 

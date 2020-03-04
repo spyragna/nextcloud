@@ -271,6 +271,18 @@ class ShareController extends AuthPublicShareController {
 	 * @return bool
 	 */
 	private function validateShare(\OCP\Share\IShare $share) {
+		// If the owner is disabled no access to the linke is granted
+		$owner = $this->userManager->get($share->getShareOwner());
+		if ($owner === null || !$owner->isEnabled()) {
+			return false;
+		}
+
+		// If the initiator of the share is disabled no access is granted
+		$initiator = $this->userManager->get($share->getSharedBy());
+		if ($initiator === null || !$initiator->isEnabled()) {
+			return false;
+		}
+
 		return $share->getNode()->isReadable() && $share->getNode()->isShareable();
 	}
 
@@ -529,7 +541,6 @@ class ShareController extends AuthPublicShareController {
 			}
 		}
 
-
 		if (!$this->validateShare($share)) {
 			throw new NotFoundException();
 		}
@@ -563,11 +574,17 @@ class ShareController extends AuthPublicShareController {
 			if ($node instanceof \OCP\Files\File) {
 				// Single file download
 				$this->singleFileDownloaded($share, $share->getNode());
-			} else if (!empty($files_list)) {
-				$this->fileListDownloaded($share, $files_list, $node);
 			} else {
-				// The folder is downloaded
-				$this->singleFileDownloaded($share, $share->getNode());
+				if ($share->getHideDownload()) {
+					return new NotFoundResponse();
+				}
+
+				if (!empty($files_list)) {
+					$this->fileListDownloaded($share, $files_list, $node);
+				} else {
+					// The folder is downloaded
+					$this->singleFileDownloaded($share, $share->getNode());
+				}
 			}
 		}
 

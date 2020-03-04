@@ -20,6 +20,7 @@ OC.L10N.register(
     "Check %s is invalid" : "검사 %s이(가) 잘못됨",
     "Check #%s does not exist" : "검사 #%s이(가) 존재하지 않음",
     "Check %s is invalid or does not exist" : "검사 %s이(가) 올바르지 않거나 존재하지 않음",
+    "Folder" : "폴더",
     "Images" : "파일",
     "No results" : "결과 없음",
     "%s (invisible)" : "%s(숨겨짐)",
@@ -75,10 +76,9 @@ OC.L10N.register(
     "End" : "끝",
     "Select timezone…" : "시간대 선택…",
     "Sync clients" : "동기화 클라이언트",
-    "Workflow" : "작업 흐름",
+    "Tag management" : "태그 관리",
     "Files workflow engine" : "파일 작업 흐름 엔진",
     "Open documentation" : "문서 열기",
-    "Loading…" : "불러오는 중…",
-    "Tag management" : "태그 관리"
+    "Loading…" : "불러오는 중…"
 },
 "nplurals=1; plural=0;");

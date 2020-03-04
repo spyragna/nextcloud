@@ -9,16 +9,11 @@ OC.L10N.register(
     "Accessibility" : "Достъпност",
     "Accessibility options for nextcloud" : "Опции за достъпност за nextcloud",
     "Provides multiple accessibilities options to ease your use of Nextcloud" : "Осигурява множество опции за достъпност за улесняване на използването на Nextcloud",
-    "Web Content Accessibility Guidelines" : "Указания за достъпност на уеб съдържание",
-    "our design team" : "нашия екип",
-    "Enable" : "Включване",
     "High contrast theme" : "Тема с висок контраст",
     "A high contrast theme to ease your navigation. Visual quality will be reduced but clarity will be increased." : "Тема с висок контраст за улесняване на навигацията. Визуалното качество ще бъде намалено, но яснотата ще бъде увеличена.",
     "Dark theme (beta)" : "Тъмна тема (бета)",
-    "OpenDyslexic is a free typeface/font designed to mitigate some of the common reading errors caused by dyslexia. The typeface was created by Abelardo Gonzalez, who released it through an open-source license." : "OpenDyslexic е безплатен шрифт, предназначен за смекчаване на някои от често срещаните грешки при четенето, причинени от дислексия.",
-    "Provides multiple accessibilities options to ease your use of nextcloud" : "Осигурява множество опции за достъпност за улесняване на използването на Nextcloud",
-    "Themes" : "Теми",
-    "Fonts" : "Шрифт",
-    "enabled" : "Включено"
+    "Web Content Accessibility Guidelines" : "Указания за достъпност на уеб съдържание",
+    "our design team" : "нашия екип",
+    "Enable" : "Включване"
 },
 "nplurals=2; plural=(n != 1);");

@@ -39,6 +39,7 @@ OC.L10N.register(
     "Select a filter" : "Hautatu iragazki bat",
     "Select a file type" : "Hautatu fitxategi mota bat",
     "e.g. httpd/unix-directory" : "adib. httpd/unix-direktorioa",
+    "Folder" : "Karpeta",
     "Images" : "Irudiak",
     "PDF documents" : "PDF dokumentuak",
     "Select a tag" : "Hautatu etiketa bat",
@@ -57,6 +58,7 @@ OC.L10N.register(
     "Delete" : "Ezabatu",
     "Active" : "Aktiboa",
     "Save" : "Gorde",
+    "Browse the app store" : "Arakatu aplikazio biltegia",
     "Show less" : "Erakutsi gutxiago",
     "Show more" : "Erakutsi gehiago",
     "matches" : "bat dator",
@@ -80,8 +82,8 @@ OC.L10N.register(
     "Start" : "Hasiera",
     "End" : "Amaiera",
     "Sync clients" : "Sinkronizatu bezeroak",
+    "Tag management" : "Etiketen kudeaketa",
     "Open documentation" : "Ireki dokumentazioa",
-    "Loading…" : "Kargatzen…",
-    "Tag management" : "Etiketen kudeaketa"
+    "Loading…" : "Kargatzen…"
 },
 "nplurals=2; plural=(n != 1);");

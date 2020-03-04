@@ -20,12 +20,15 @@ OC.L10N.register(
     "Check %s is invalid" : "%s érvénytelen, ellenőrizd",
     "Check #%s does not exist" : "#%s nem létezik, ellenőrizd",
     "Check %s is invalid or does not exist" : "%s érvénytelen vagy nem létezik, ellenőrizd",
+    "Flow" : "Flow",
+    "Folder" : "Mappa",
     "Images" : "Képek",
     "No results" : "Nincs találat",
     "%s (invisible)" : "%s (láthatatlan)",
     "%s (restricted)" : "%s (korlátozott)",
     "Predefined URLs" : "Elődefiniált URL-ek",
     "Files WebDAV" : "WebDAV fálok",
+    "Others" : "Egyebek",
     "Android client" : "Android kliens",
     "iOS client" : "iOS klens",
     "Desktop client" : "Asztali kliens",
@@ -77,10 +80,9 @@ OC.L10N.register(
     "End" : "Vég",
     "Select timezone…" : "Időzóna választás...",
     "Sync clients" : "Szinkron kliensek",
-    "Workflow" : "Munkafolyamat",
+    "Tag management" : "Címkekezelés",
     "Files workflow engine" : "Fájl munkafolyamat motor",
     "Open documentation" : "Dokumentáció megnyitása",
-    "Loading…" : "Betöltés...",
-    "Tag management" : "Címkekezelés"
+    "Loading…" : "Betöltés..."
 },
 "nplurals=2; plural=(n != 1);");

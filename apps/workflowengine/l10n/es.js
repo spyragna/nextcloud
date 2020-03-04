@@ -48,6 +48,7 @@ OC.L10N.register(
     "Select a comparator" : "Seleccione un comparador",
     "Select a file type" : "Selecciona un tipo de archivo",
     "e.g. httpd/unix-directory" : "p.ej.. httpd/carpeta-unix",
+    "Folder" : "Carpeta",
     "Images" : "Imágenes",
     "Office documents" : "Documentos de oficina",
     "PDF documents" : "Documentos PDF",
@@ -127,10 +128,9 @@ OC.L10N.register(
     "End" : "Final",
     "Select timezone…" : "Seleccionar zona horaria...",
     "Sync clients" : "Clientes de sincronización",
-    "Workflow" : "Flujo de trabajo",
+    "Tag management" : "Tratamiento de etiquetas",
     "Files workflow engine" : "Motor de flujo de trabajo de archivos",
     "Open documentation" : "Documentación abierta",
-    "Loading…" : "Cargando...",
-    "Tag management" : "Tratamiento de etiquetas"
+    "Loading…" : "Cargando..."
 },
 "nplurals=2; plural=(n != 1);");

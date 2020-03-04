@@ -36,6 +36,7 @@ OC.L10N.register(
     "Select a comparator" : "Vybrať porovnávač",
     "Select a file type" : "Vyberte typ súboru",
     "e.g. httpd/unix-directory" : "napr. adresár  httpd/unix",
+    "Folder" : "Priečinok",
     "Images" : "Obrázky",
     "Office documents" : "Dokumenty Office",
     "PDF documents" : "Dokumenty PDF",
@@ -107,10 +108,9 @@ OC.L10N.register(
     "End" : "Koniec",
     "Select timezone…" : "Vybrať časové pásmo...",
     "Sync clients" : "Synchronizovať klientov",
-    "Workflow" : "Systém práce",
+    "Tag management" : "Správa štítkov",
     "Files workflow engine" : "Typ spôsobu práce súborov",
     "Open documentation" : "Otvoriť dokumentáciu",
-    "Loading…" : "Načítava sa...",
-    "Tag management" : "Správa štítkov"
+    "Loading…" : "Načítava sa..."
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

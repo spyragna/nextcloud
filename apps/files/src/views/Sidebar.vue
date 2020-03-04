@@ -26,7 +26,7 @@
 		ref="sidebar"
 		v-bind="appSidebar"
 		:force-menu="true"
-		@close="onClose"
+		@close="close"
 		@update:active="setActiveTab"
 		@update:starred="toggleStarred"
 		@[defaultActionListener].stop.prevent="onDefaultAction">
@@ -47,7 +47,7 @@
 				:close-after-click="true"
 				icon="icon-tag"
 				@click="toggleTags">
-				{{ t('files_sharing', 'Tags') }}
+				{{ t('files', 'Tags') }}
 			</ActionButton>
 		</template>
 
@@ -62,6 +62,7 @@
 			<component
 				:is="tabComponent(tab).is"
 				v-if="canDisplay(tab)"
+				:id="tab.id"
 				:key="tab.id"
 				:component="tabComponent(tab).component"
 				:name="tab.name"
@@ -73,8 +74,8 @@
 <script>
 import $ from 'jquery'
 import axios from '@nextcloud/axios'
-import AppSidebar from 'nextcloud-vue/dist/Components/AppSidebar'
-import ActionButton from 'nextcloud-vue/dist/Components/ActionButton'
+import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar'
+import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import FileInfo from '../services/FileInfo'
 import LegacyTab from '../components/LegacyTab'
 import LegacyView from '../components/LegacyView'
@@ -237,7 +238,7 @@ export default {
 
 		isSystemTagsEnabled() {
 			return OCA && 'SystemTags' in OCA
-		}
+		},
 	},
 
 	watch: {
@@ -278,10 +279,6 @@ export default {
 		 */
 		canDisplay(tab) {
 			return tab.isEnabled(this.fileInfo)
-		},
-		onClose() {
-			this.resetData()
-			OCA.Files.Sidebar.close()
 		},
 		resetData() {
 			this.error = null
@@ -405,7 +402,54 @@ export default {
 			if (OCA.SystemTags && OCA.SystemTags.View) {
 				OCA.SystemTags.View.toggle()
 			}
-		}
+		},
+
+		/**
+		 * Open the sidebar for the given file
+		 *
+		 * @param {string} path the file path to load
+		 * @returns {Promise}
+		 * @throws {Error} loading failure
+		 */
+		async open(path) {
+			// update current opened file
+			this.Sidebar.file = path
+
+			// reset previous data
+			this.resetData()
+			if (path && path.trim() !== '') {
+				try {
+					this.fileInfo = await FileInfo(this.davPath)
+					// adding this as fallback because other apps expect it
+					this.fileInfo.dir = this.file.split('/').slice(0, -1).join('/')
+
+					// DEPRECATED legacy views
+					// TODO: remove
+					this.views.forEach(view => {
+						view.setFileInfo(this.fileInfo)
+					})
+
+					this.$nextTick(() => {
+						if (this.$refs.sidebar) {
+							this.$refs.sidebar.updateTabs()
+						}
+					})
+				} catch (error) {
+					this.error = t('files', 'Error while loading the file data')
+					console.error('Error while loading the file data', error)
+
+					throw new Error(error)
+				}
+			}
+		},
+
+		/**
+		 * Close the sidebar
+		 */
+		close() {
+			this.Sidebar.file = ''
+			this.resetData()
+		},
 	},
 }
 </script>

@@ -37,6 +37,7 @@ OC.L10N.register(
     "Select a comparator" : "Elekti komparilon",
     "Select a file type" : "Elekti dosierformon",
     "e.g. httpd/unix-directory" : "ekz. httpd/unix-directory",
+    "Folder" : "Dosierujo",
     "Images" : "Bildoj",
     "Office documents" : "Oficejaj dokumentoj",
     "PDF documents" : "PDF-dokumentoj",
@@ -108,10 +109,9 @@ OC.L10N.register(
     "End" : "Fino",
     "Select timezone…" : "Elekti horzonon...",
     "Sync clients" : "Sinkronigaj klientoj",
-    "Workflow" : "Laborfluo",
+    "Tag management" : "Etikeda administrado",
     "Files workflow engine" : "Modulo de dosiera laborfluo",
     "Open documentation" : "Malfermi dokumentaron",
-    "Loading…" : "Ŝargado...",
-    "Tag management" : "Etikeda administrado"
+    "Loading…" : "Ŝargado..."
 },
 "nplurals=2; plural=(n != 1);");

@@ -1,11 +1,10 @@
 <?php
+declare(strict_types=1);
+
 /**
- * @copyright Copyright (c) 2017 Arthur Schiwon <blizzz@arthur-schiwon.de>
+ * @copyright Copyright (c) 2019, Roeland Jago Douma <roeland@famdouma.nl>
  *
- * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  * @author Christoph Wurst <christoph@winzerhof-wurst.at>
- * @author Greta Doci <gretadoci@gmail.com>
- * @author Julius Härtl <jus@bitgrid.net>
  * @author Roeland Jago Douma <roeland@famdouma.nl>
  *
  * @license GNU AGPL version 3 or any later version
@@ -25,36 +24,20 @@
  *
  */
 
-namespace OCA\Settings\Personal;
-
+namespace OCA\Settings\Settings\Personal\Security;
 
 use function array_filter;
 use function array_map;
 use function is_null;
-use OC\Authentication\Exceptions\InvalidTokenException;
-use OC\Authentication\Token\INamedToken;
-use OC\Authentication\Token\IProvider as IAuthTokenProvider;
-use OC\Authentication\Token\IToken;
-use OC\Authentication\TwoFactorAuth\Manager as TwoFactorManager;
 use OC\Authentication\TwoFactorAuth\ProviderLoader;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\Authentication\TwoFactorAuth\IProvider;
 use OCP\Authentication\TwoFactorAuth\IProvidesPersonalSettings;
 use OCP\IConfig;
-use OCP\IInitialStateService;
-use OCP\ISession;
-use OCP\IUserManager;
 use OCP\IUserSession;
-use OCP\Session\Exceptions\SessionNotAvailableException;
 use OCP\Settings\ISettings;
 
-class Security implements ISettings {
-
-	/** @var IInitialStateService */
-	private $initialStateService;
-
-	/** @var IUserManager */
-	private $userManager;
+class TwoFactor implements ISettings {
 
 	/** @var ProviderLoader */
 	private $providerLoader;
@@ -68,14 +51,10 @@ class Security implements ISettings {
 	/** @var IConfig */
 	private $config;
 
-	public function __construct(IInitialStateService $initialStateService,
-								IUserManager $userManager,
-								ProviderLoader $providerLoader,
+	public function __construct(ProviderLoader $providerLoader,
 								IUserSession $userSession,
 								IConfig $config,
 								?string $UserId) {
-		$this->initialStateService = $initialStateService;
-		$this->userManager = $userManager;
 		$this->providerLoader = $providerLoader;
 		$this->userSession = $userSession;
 		$this->uid = $UserId;
@@ -83,20 +62,7 @@ class Security implements ISettings {
 	}
 
 	public function getForm(): TemplateResponse {
-		$user = $this->userManager->get($this->uid);
-		$passwordChangeSupported = false;
-		if ($user !== null) {
-			$passwordChangeSupported = $user->canChangePassword();
-		}
-
-		$this->initialStateService->provideInitialState(
-			'settings',
-			'can_create_app_token',
-			$this->userSession->getImpersonatingUserID() === null
-		);
-
-		return new TemplateResponse('settings', 'settings/personal/security', [
-			'passwordChangeSupported' => $passwordChangeSupported,
+		return new TemplateResponse('settings', 'settings/personal/security/twofactor', [
 			'twoFactorProviderData' => $this->getTwoFactorProviderData(),
 			'themedark' => $this->config->getUserValue($this->uid, 'accessibility', 'theme', false)
 		]);
@@ -108,7 +74,7 @@ class Security implements ISettings {
 	}
 
 	public function getPriority(): int {
-		return 10;
+		return 15;
 	}
 
 	private function getTwoFactorProviderData(): array {

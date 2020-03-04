@@ -48,6 +48,7 @@ OC.L10N.register(
     "Select a comparator" : "Sélectionnez un comparateur",
     "Select a file type" : "Sélectionnez un type de fichier",
     "e.g. httpd/unix-directory" : "par exemple httpd/unix-directory",
+    "Folder" : "Dossier",
     "Images" : "Images",
     "Office documents" : "Documents Office",
     "PDF documents" : "Documents PDF",
@@ -68,6 +69,7 @@ OC.L10N.register(
     "Desktop client" : "Client de bureau",
     "Thunderbird & Outlook addons" : "Modules complémentaires Thunderbird & Outlook",
     "Custom user agent" : "Agent utilisateur personnalisé",
+    "At least one event must be selected" : "Au moins un événement doit être sélectionné",
     "Add new flow" : "Ajouter un nouveau flux",
     "When" : "Quand",
     "and" : "et",
@@ -77,6 +79,7 @@ OC.L10N.register(
     "Active" : "Actif",
     "Save" : "Enregistrer",
     "Available flows" : "Flux disponibles",
+    "For details on how to write your own flow, check out the development documentation." : "Pour savoir comment rédiger votre propre flux, consultez la documentation sur le développement.",
     "More flows" : "Plus de flux",
     "Browse the app store" : "Parcourir l'App Store",
     "Show less" : "Afficher moins",
@@ -125,10 +128,9 @@ OC.L10N.register(
     "End" : "Fin",
     "Select timezone…" : "Sélectionner le fuseau horaire...",
     "Sync clients" : "Clients de synchronisation",
-    "Workflow" : "Flux d'activités",
+    "Tag management" : "Gestion des étiquettes",
     "Files workflow engine" : "Moteur de Workflow de fichiers",
     "Open documentation" : "Voir la documentation",
-    "Loading…" : "Chargement...",
-    "Tag management" : "Gestion des étiquettes"
+    "Loading…" : "Chargement..."
 },
 "nplurals=2; plural=(n > 1);");

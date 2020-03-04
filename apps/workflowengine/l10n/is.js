@@ -20,6 +20,7 @@ OC.L10N.register(
     "Check %s is invalid" : "Athugunin %s er ógild",
     "Check #%s does not exist" : "Athugunin #%s er ekki til",
     "Check %s is invalid or does not exist" : "Athugunin %s er ógild eða er ekki til",
+    "Folder" : "Mappa",
     "Images" : "Myndir",
     "No results" : "Engar niðurstöður",
     "%s (invisible)" : "%s (ósýnilegt)",
@@ -77,10 +78,9 @@ OC.L10N.register(
     "End" : "Endar",
     "Select timezone…" : "Veldu tímabelti…",
     "Sync clients" : "Samstilla biðlara",
-    "Workflow" : "Vinnuferli",
+    "Tag management" : "Sýsl með merki",
     "Files workflow engine" : "Verkferlavél skráa",
     "Open documentation" : "Opna hjálparskjöl",
-    "Loading…" : "Hleð inn...",
-    "Tag management" : "Sýsl með merki"
+    "Loading…" : "Hleð inn..."
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

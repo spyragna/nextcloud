@@ -21,7 +21,10 @@
   -->
 
 <template>
-	<Tab :icon="icon" :name="name" :class="{ 'icon-loading': loading }">
+	<Tab :id="id"
+		:icon="icon"
+		:name="name"
+		:class="{ 'icon-loading': loading }">
 		<!-- error message -->
 		<div v-if="error" class="emptycontent">
 			<div class="icon icon-error" />
@@ -87,9 +90,9 @@
 <script>
 import { CollectionList } from 'nextcloud-vue-collections'
 import { generateOcsUrl } from '@nextcloud/router'
-import Avatar from 'nextcloud-vue/dist/Components/Avatar'
+import Avatar from '@nextcloud/vue/dist/Components/Avatar'
 import axios from '@nextcloud/axios'
-import Tab from 'nextcloud-vue/dist/Components/AppSidebarTab'
+import Tab from '@nextcloud/vue/dist/Components/AppSidebarTab'
 
 import { shareWithTitle } from '../utils/SharedWithMe'
 import Share from '../models/Share'
@@ -151,7 +154,7 @@ export default {
 		 * @returns {string}
 		 */
 		id() {
-			return this.name.toLowerCase().replace(/ /g, '-')
+			return 'sharing'
 		},
 
 		/**

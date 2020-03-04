@@ -20,6 +20,7 @@ OC.L10N.register(
     "Check %s is invalid" : "La validación %s no es inválida",
     "Check #%s does not exist" : "La validación #%s no existe",
     "Check %s is invalid or does not exist" : "La validación %s es inválida o no existe",
+    "Folder" : "Carpeta",
     "Images" : "Imágenes",
     "No results" : "No hay resultados",
     "%s (invisible)" : "%s (invisible) ",
@@ -74,7 +75,6 @@ OC.L10N.register(
     "End" : "Fin",
     "Select timezone…" : "Selecciona la zona horaria...",
     "Sync clients" : "Sincronizar clientes",
-    "Workflow" : "Flujo de trabajo",
     "Files workflow engine" : "Motor de flujo de trabajo de archivos",
     "Open documentation" : "Abrir la documentación",
     "Loading…" : "Cargando..."

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 /**
@@ -26,58 +25,34 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Settings\Tests\Settings\Personal;
+namespace OCA\Settings\Tests\Settings\Personal\Security;
 
-use OC\Authentication\TwoFactorAuth\ProviderLoader;
-use OCA\Settings\Personal\Security;
+use OCA\Settings\Settings\Personal\Security\Password;
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\IConfig;
-use OCP\IInitialStateService;
 use OCP\IUser;
 use OCP\IUserManager;
-use OCP\IUserSession;
 use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
-class SecurityTest extends TestCase {
-
-	/** @var IInitialStateService|MockObject */
-	private $initialStateService;
+class PasswordTest extends TestCase {
 
 	/** @var IUserManager|MockObject */
 	private $userManager;
 
-	/** @var ProviderLoader|MockObject */
-	private $providerLoader;
-
-	/** @var IUserSession|MockObject */
-	private $userSession;
-
-	/** @var IConfig|MockObject */
-	private $config;
-
 	/** @var string */
 	private $uid;
 
-	/** @var Security */
+	/** @var Password */
 	private $section;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->initialStateService = $this->createMock(IInitialStateService::class);
 		$this->userManager = $this->createMock(IUserManager::class);
-		$this->providerLoader = $this->createMock(ProviderLoader::class);
-		$this->userSession = $this->createMock(IUserSession::class);
-		$this->config = $this->createMock(IConfig::class);
 		$this->uid = 'test123';
 
-		$this->section = new Security(
-			$this->initialStateService,
+		$this->section = new Password(
 			$this->userManager,
-			$this->providerLoader,
-			$this->userSession,
-			$this->config,
 			$this->uid
 		);
 	}
@@ -91,31 +66,11 @@ class SecurityTest extends TestCase {
 		$user->expects($this->once())
 			->method('canChangePassword')
 			->willReturn(true);
-		$this->userSession->expects($this->once())
-			->method('getUser')
-			->willReturn($user);
-		$this->providerLoader->expects($this->once())
-			->method('getProviders')
-			->with($user)
-			->willReturn([]);
-		$this->config->expects($this->once())
-			->method('getUserValue')
-			->with(
-				$this->uid,
-				'accessibility',
-				'theme',
-				false
-			)
-			->willReturn(false);
 
 		$form = $this->section->getForm();
 
-		$expected = new TemplateResponse('settings', 'settings/personal/security', [
+		$expected = new TemplateResponse('settings', 'settings/personal/security/password', [
 			'passwordChangeSupported' => true,
-			'twoFactorProviderData' => [
-				'providers' => [],
-			],
-			'themedark' => false,
 		]);
 		$this->assertEquals($expected, $form);
 	}

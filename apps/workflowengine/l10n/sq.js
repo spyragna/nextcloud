@@ -20,6 +20,7 @@ OC.L10N.register(
     "Check %s is invalid" : "Kontrolli %s është i pavlefshëm",
     "Check #%s does not exist" : "Kontrolli #%s nuk ekziston",
     "Check %s is invalid or does not exist" : "Kontrolli %s është i pavlefshëm ose nuk ekziston",
+    "Folder" : "Skedari",
     "Images" : "Imazhe ",
     "No results" : "Asnjë rezultat",
     "%s (invisible)" : "%s (e padukshme)",
@@ -73,7 +74,6 @@ OC.L10N.register(
     "End" : "Mbarim",
     "Select timezone…" : "Zgjidh brezin kohorë",
     "Sync clients" : "Klient të sinkronizuar",
-    "Workflow" : "Rrjedha e punëve",
     "Files workflow engine" : "Motori i rrjedhës së punës së skedarëve",
     "Open documentation" : "Dokumentacion i hapur",
     "Loading…" : "Po ngarkohet..."

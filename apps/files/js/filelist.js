@@ -1591,6 +1591,8 @@
 			td.append(linkElem);
 			tr.append(td);
 
+			var isDarkTheme = OCA.Accessibility && OCA.Accessibility.theme === 'dark'
+
 			try {
 				var maxContrastHex = window.getComputedStyle(document.documentElement)
 					.getPropertyValue('--color-text-maxcontrast').trim()
@@ -1599,10 +1601,7 @@
 				}
 				var maxContrast = parseInt(maxContrastHex.substring(1, 3), 16)
 			} catch(error) {
-				var maxContrast = OCA.Accessibility
-					&& OCA.Accessibility.theme === 'themedark'
-						? 130
-						: 118
+				var maxContrast = isDarkTheme ? 130 : 118
 			}
 
 			// size column
@@ -1618,7 +1617,7 @@
 					sizeColor = maxContrast;
 				}
 
-				if (OCA.Accessibility && OCA.Accessibility.theme === 'themedark') {
+				if (isDarkTheme) {
 					sizeColor = Math.abs(sizeColor);
 					// ensure that the dimmest color is still readable
 					// min. color contrast for normal text on black background according to WCAG AA
@@ -1646,7 +1645,7 @@
 				modifiedColor = maxContrast;
 			}
 
-			if (OCA.Accessibility && OCA.Accessibility.theme === 'themedark') {
+			if (isDarkTheme) {
 				modifiedColor = Math.abs(modifiedColor);
 
 				// ensure that the dimmest color is still readable
@@ -2950,8 +2949,8 @@
 					deferred.resolve(status, data);
 				})
 				.fail(function(status) {
-					OC.Notification.show(t('files', 'Could not create file "{file}"',
-						{file: name}), {type: 'error'}
+					OCP.Toast.error(
+						t('files', 'Could not fetch file details "{file}"', { file: fileName })
 					);
 					deferred.reject(status);
 				});
@@ -3659,10 +3658,9 @@
 		 */
 		registerTabView: function(tabView) {
 			console.warn('registerTabView is deprecated! It will be removed in nextcloud 20.');
-			const name = tabView.getLabel()
 			const enabled = tabView.canDisplay || undefined
-			if (name) {
-				OCA.Files.Sidebar.registerTab(new OCA.Files.Sidebar.Tab(name, tabView, enabled, true))
+			if (tabView.id) {
+				OCA.Files.Sidebar.registerTab(new OCA.Files.Sidebar.Tab(tabView.id, tabView, enabled, true))
 			}
 		},
 
@@ -3798,9 +3796,6 @@ $(document).ready(function() {
 		if (OCA.Files.FileList.lastAction) {
 			OCA.Files.FileList.lastAction();
 		}
-	});
-	$(window).on('unload', function () {
-		$(window).trigger('beforeunload');
 	});
 
 });

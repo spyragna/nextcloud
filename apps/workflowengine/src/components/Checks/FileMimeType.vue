@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { Multiselect } from 'nextcloud-vue/dist/Components/Multiselect'
+import { Multiselect } from '@nextcloud/vue/dist/Components/Multiselect'
 import valueMixin from './../../mixins/valueMixin'
 
 export default {
@@ -65,6 +65,11 @@ export default {
 	data() {
 		return {
 			predefinedTypes: [
+				{
+					icon: 'icon-folder',
+					label: t('workflowengine', 'Folder'),
+					pattern: 'httpd/unix-directory',
+				},
 				{
 					icon: 'icon-picture',
 					label: t('workflowengine', 'Images'),

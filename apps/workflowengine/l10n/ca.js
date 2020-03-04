@@ -32,10 +32,12 @@ OC.L10N.register(
     "Check %s is not allowed with this entity" : "La comprovació de %s no es permet amb aquesta entitat.",
     "Check #%s does not exist" : "Comprovació #%s no existeix",
     "Check %s is invalid or does not exist" : "Comprovació %s no és vàlida o no existeix",
+    "Flow" : "Flux",
     "Nextcloud workflow engine" : "Motor de flux de treball de Nextcloud",
     "Select a filter" : "Seleccioneu un filtre",
     "Select a comparator" : "Seleccioneu un comparador",
     "Select a file type" : "Seleccioneu un tipus de fitxer",
+    "Folder" : "Carpeta",
     "Images" : "Imatges",
     "Office documents" : "Documents d'oficina",
     "PDF documents" : "Documents PDF",
@@ -106,10 +108,9 @@ OC.L10N.register(
     "End" : "Finalitza",
     "Select timezone…" : "Selecciona fus horari",
     "Sync clients" : "Sincronitza les aplicacions clients",
-    "Workflow" : "Flux de treball",
+    "Tag management" : "Gestió d'etiquetes",
     "Files workflow engine" : "Fitxers del motor de flux de treball",
     "Open documentation" : "Obre la documentació",
-    "Loading…" : "S'està carregant...",
-    "Tag management" : "Gestió d'etiquetes"
+    "Loading…" : "S'està carregant..."
 },
 "nplurals=2; plural=(n != 1);");

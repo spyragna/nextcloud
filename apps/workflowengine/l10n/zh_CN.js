@@ -48,6 +48,7 @@ OC.L10N.register(
     "Select a comparator" : "选择一个比较器",
     "Select a file type" : "选择一个文件类型",
     "e.g. httpd/unix-directory" : "例如： httpd/unix-directory",
+    "Folder" : "文件夹",
     "Images" : "图片",
     "Office documents" : "Office 文档",
     "PDF documents" : "PDF文档",
@@ -127,10 +128,9 @@ OC.L10N.register(
     "End" : "结束",
     "Select timezone…" : "选择时区...",
     "Sync clients" : "同步客户端",
-    "Workflow" : "工作流",
+    "Tag management" : "标签管理",
     "Files workflow engine" : "文件工作流引擎",
     "Open documentation" : "打开文档",
-    "Loading…" : "正在加载…",
-    "Tag management" : "标签管理"
+    "Loading…" : "正在加载…"
 },
 "nplurals=1; plural=0;");

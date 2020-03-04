@@ -16,6 +16,7 @@ OC.L10N.register(
     "Operation #%s does not exist" : "פעולה מס׳ %s לא קיימת",
     "Operation %s does not exist" : "הפעולה %s לא קיימת",
     "Operation %s is invalid" : "הפעולה %s שגויה",
+    "Folder" : "תיקייה",
     "Images" : "תמונות",
     "No results" : "אין תוצאות",
     "%s (invisible)" : "%s (נסתר)",
@@ -73,8 +74,8 @@ OC.L10N.register(
     "End" : "סיום",
     "Select timezone…" : "בחירת אזור זמן…",
     "Sync clients" : "סנכרון לקוחות",
+    "Tag management" : "ניהול תגיות",
     "Open documentation" : "פתיחת תיעוד",
-    "Loading…" : "בטעינה…",
-    "Tag management" : "ניהול תגיות"
+    "Loading…" : "בטעינה…"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");

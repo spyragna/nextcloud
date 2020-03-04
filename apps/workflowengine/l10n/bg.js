@@ -20,6 +20,7 @@ OC.L10N.register(
     "Check %s is invalid" : "Проверка %s е невалидна",
     "Check #%s does not exist" : "Проверка #%s не съществува",
     "Check %s is invalid or does not exist" : "Проверка %s не е валидна или несъществува",
+    "Folder" : "Папка",
     "Images" : "Изображения",
     "No results" : "Няма резултати",
     "Predefined URLs" : "Предефинирани URL-и",
@@ -71,7 +72,6 @@ OC.L10N.register(
     "End" : "Край",
     "Select timezone…" : "Изберете часови пояс...",
     "Sync clients" : "Синхронизиране на клиенти",
-    "Workflow" : "Работен процес",
     "Open documentation" : "Отвори документация",
     "Loading…" : "Зареждане..."
 },
