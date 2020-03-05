@@ -1534,7 +1534,7 @@
 			else {
 				linkUrl = this.getDownloadUrl(name, path, type === 'dir');
 			}
-			let linkElem = $('<a></a>').attr({
+			var linkElem = $('<a></a>').attr({
 				"class": "name",
 				"href": linkUrl
 			});
