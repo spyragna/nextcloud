@@ -28,9 +28,12 @@ namespace OCA\ContactsInteraction;
 use Exception;
 use OCA\ContactsInteraction\AppInfo\Application;
 use OCA\ContactsInteraction\Db\RecentContact;
+use OCA\ContactsInteraction\Db\RecentContactMapper;
 use OCA\DAV\CardDAV\Integration\ExternalAddressBook;
 use OCA\DAV\DAV\Sharing\IShareable;
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IL10N;
+use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\Exception\NotImplemented;
 use Sabre\DAV\PropPatch;
 use Sabre\DAVACL\ACLTrait;
@@ -40,8 +43,8 @@ class AddressBook extends ExternalAddressBook implements IACL, IShareable {
 
 	use ACLTrait;
 
-	/** @var Store */
-	private $store;
+	/** @var RecentContactMapper */
+	private $mapper;
 
 	/** @var IL10N */
 	private $l10n;
@@ -49,12 +52,12 @@ class AddressBook extends ExternalAddressBook implements IACL, IShareable {
 	/** @var string */
 	private $principalUri;
 
-	public function __construct(Store $store,
+	public function __construct(RecentContactMapper $mapper,
 								IL10N $l10n,
 								string $principalUri) {
 		parent::__construct(Application::APP_ID, 'recent');
 
-		$this->store = $store;
+		$this->mapper = $mapper;
 		$this->l10n = $l10n;
 		$this->principalUri = $principalUri;
 	}
@@ -75,34 +78,52 @@ class AddressBook extends ExternalAddressBook implements IACL, IShareable {
 
 	/**
 	 * @inheritDoc
+	 * @throws NotFound
 	 */
 	public function getChild($name) {
-		// TODO: Implement getChild() method.
-		throw new NotImplemented();
+		try {
+			return new Card(
+				$this->mapper->find(
+					$this->getUid(),
+					(int)$name
+				),
+				$this->principalUri,
+				$this->getACL()
+			);
+		} catch (DoesNotExistException $ex) {
+			throw new NotFound("Contact does not exist: " . $ex->getMessage(), 0, $ex);
+		}
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getChildren(): array {
-		return [
-			new Card(
-				RecentContact::fromParams([
-					'id' => 13,
-					'email' => 'test@domain.com',
-				]),
-				$this->principalUri,
-				$this->getACL()
-			)
-		];
+		return array_map(
+			function (RecentContact $contact) {
+				return new Card(
+					$contact,
+					$this->principalUri,
+					$this->getACL()
+				);
+			},
+			$this->mapper->findAll($this->getUid())
+		);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function childExists($name) {
-		// TODO: Implement childExists() method.
-		throw new NotImplemented();
+		try {
+			$this->mapper->find(
+				$this->getUid(),
+				(int)$name
+			);
+			return true;
+		} catch (DoesNotExistException $e) {
+			return false;
+		}
 	}
 
 	/**
@@ -171,6 +192,11 @@ class AddressBook extends ExternalAddressBook implements IACL, IShareable {
 	 */
 	public function getResourceId() {
 		throw new NotImplemented();
+	}
+
+	private function getUid(): string {
+		list(, $uid) = \Sabre\Uri\split($this->principalUri);
+		return $uid;
 	}
 
 }

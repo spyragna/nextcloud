@@ -27,34 +27,55 @@ namespace OCA\ContactsInteraction\Db;
 
 use OCP\AppFramework\Db\Entity;
 use OCP\Contacts\Events\ContactInteractedWithEvent;
+use Sabre\VObject\Component\VCard;
+use Sabre\VObject\UUIDUtil;
 
 /**
+ * @method void setActorUid(string $uid)
+ * @method string|null getActorUid()
  * @method void setUid(string $uid)
  * @method string|null getUid()
  * @method void setEmail(string $email)
  * @method string|null getEmail()
  * @method void setFederatedCloudId(string $federatedCloudId)
- * @method string getFederatedCloudId()
+ * @method string|null getFederatedCloudId()
+ * @method void setCard(string $card)
+ * @method string getCard()
+ * @method void setLastContact(int $lastContact)
+ * @method int getLastContact()
  */
 class RecentContact extends Entity {
 
+	/** @var string */
+	protected $actorUid;
+
+	/** @var string|null */
 	protected $uid;
 
+	/** @var string|null */
 	protected $email;
 
+	/** @var string|null */
 	protected $federatedCloudId;
 
-	protected $createdAt;
+	/** @var string */
+	protected $card;
+
+	/** @var int */
+	protected $lastContact;
 
 	public function __construct() {
+		$this->addType('actorUid', 'string');
 		$this->addType('uid', 'string');
 		$this->addType('email', 'string');
 		$this->addType('federatedCloudId', 'string');
-		$this->addType('createdAt', 'int');
+		$this->addType('card', 'string');
+		$this->addType('lastContact', 'int');
 	}
 
-	public static function fromEvent(ContactInteractedWithEvent $event): self {
+	public static function fromEvent(ContactInteractedWithEvent $event, int $now): self {
 		$contact = new self();
+		$contact->setActorUid($event->getActor()->getUID());
 		if ($event->getUid() !== null) {
 			$contact->setUid($event->getUid());
 		}
@@ -64,7 +85,25 @@ class RecentContact extends Entity {
 		if ($event->getFederatedCloudId() !== null) {
 			$contact->setFederatedCloudId($event->getFederatedCloudId());
 		}
+		$contact->setLastContact($now);
+		$contact->setCard($contact->generateCard());
 		return $contact;
+	}
+
+	private function generateCard(): string {
+		$props = [
+			'URI' => UUIDUtil::getUUID(),
+			'FN' => $this->getEmail() ?? $this->getUid() ?? $this->getFederatedCloudId(),
+		];
+
+		if ($this->getEmail() !== null) {
+			$props['EMAIL'] = $this->getEmail();
+		}
+		if ($this->getFederatedCloudId() !== null) {
+			$props['CLOUD'] = $this->getFederatedCloudId();
+		}
+
+		return (new VCard($props))->serialize();
 	}
 
 }

@@ -25,13 +25,49 @@ declare(strict_types=1);
 
 namespace OCA\ContactsInteraction\Db;
 
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\IDBConnection;
 
 class RecentContactMapper extends QBMapper {
 
+	public const TABLE_NAME = 'recent_contact';
+
 	public function __construct(IDBConnection $db) {
-		parent::__construct($db, 'recent_contact');
+		parent::__construct($db, self::TABLE_NAME);
+	}
+
+	/**
+	 * @return RecentContact[]
+	 */
+	public function findAll(string $uid): array {
+		$qb = $this->db->getQueryBuilder();
+
+		$select = $qb
+			->select('*')
+			->from($this->getTableName())
+			->where($qb->expr()->eq('actor_uid', $qb->createNamedParameter($uid)));
+
+		return $this->findEntities($select);
+	}
+
+	/**
+	 * @param string $uid
+	 * @param int $id
+	 *
+	 * @throws DoesNotExistException
+	 * @return RecentContact
+	 */
+	public function find(string $uid, int $id): RecentContact {
+		$qb = $this->db->getQueryBuilder();
+
+		$select = $qb
+			->select('*')
+			->from($this->getTableName())
+			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, $qb::PARAM_INT)))
+			->andWhere($qb->expr()->eq('actor_uid', $qb->createNamedParameter($uid)));
+
+		return $this->findEntity($select);
 	}
 
 }

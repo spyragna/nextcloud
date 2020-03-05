@@ -46,20 +46,21 @@ declare(strict_types=1);
 namespace OCA\ContactsInteraction;
 
 use OCA\ContactsInteraction\AppInfo\Application;
+use OCA\ContactsInteraction\Db\RecentContactMapper;
 use OCA\DAV\CardDAV\Integration\ExternalAddressBook;
 use OCA\DAV\CardDAV\Integration\IAddressBookProvider;
 use OCP\IL10N;
 
 class AddressBookProvider implements IAddressBookProvider {
 
-	/** @var Store */
-	private $store;
+	/** @var RecentContactMapper */
+	private $mapper;
 
 	/** @var IL10N */
 	private $l10n;
 
-	public function __construct(Store $store, IL10N $l10n) {
-		$this->store = $store;
+	public function __construct(RecentContactMapper $mapper, IL10N $l10n) {
+		$this->mapper = $mapper;
 		$this->l10n = $l10n;
 	}
 
@@ -75,7 +76,7 @@ class AddressBookProvider implements IAddressBookProvider {
 	 */
 	public function fetchAllForAddressBookHome(string $principalUri): array {
 		return [
-			new AddressBook($this->store, $this->l10n, $principalUri)
+			new AddressBook($this->mapper, $this->l10n, $principalUri)
 		];
 	}
 

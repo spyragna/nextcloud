@@ -26,7 +26,8 @@ declare(strict_types=1);
 namespace OCA\ContactsInteraction\Listeners;
 
 use OCA\ContactsInteraction\Db\RecentContact;
-use OCA\ContactsInteraction\Store;
+use OCA\ContactsInteraction\Db\RecentContactMapper;
+use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Contacts\Events\ContactInteractedWithEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
@@ -34,15 +35,20 @@ use OCP\ILogger;
 
 class ContactInteractionListener implements IEventListener {
 
-	/** @var Store */
-	private $store;
+	/** @var RecentContactMapper */
+	private $mapper;
+
+	/** @var ITimeFactory */
+	private $timeFactory;
 
 	/** @var ILogger */
 	private $logger;
 
-	public function __construct(Store $store,
+	public function __construct(RecentContactMapper $mapper,
+								ITimeFactory $timeFactory,
 								ILogger $logger) {
-		$this->store = $store;
+		$this->mapper = $mapper;
+		$this->timeFactory = $timeFactory;
 		$this->logger = $logger;
 	}
 
@@ -56,7 +62,9 @@ class ContactInteractionListener implements IEventListener {
 			return;
 		}
 
-		$this->store->import(RecentContact::fromEvent($event));
+		// TODO: check if the there is an existing contact, then just copy the card and only
+		//       create a new card when this data is new
+		$this->mapper->insert(RecentContact::fromEvent($event, $this->timeFactory->getTime()));
 	}
 
 }
