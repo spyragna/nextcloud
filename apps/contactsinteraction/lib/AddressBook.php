@@ -31,6 +31,7 @@ use OCA\ContactsInteraction\Db\RecentContact;
 use OCA\ContactsInteraction\Db\RecentContactMapper;
 use OCA\DAV\CardDAV\Integration\ExternalAddressBook;
 use OCA\DAV\DAV\Sharing\IShareable;
+use OCA\DAV\DAV\Sharing\Plugin;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IL10N;
 use Sabre\DAV\Exception\NotFound;
@@ -148,6 +149,7 @@ class AddressBook extends ExternalAddressBook implements IACL, IShareable {
 		return [
 			'principaluri' => $this->principalUri,
 			'{DAV:}displayname' => $this->l10n->t('Recently contacted'),
+			'{' . Plugin::NS_OWNCLOUD . '}read-only' => true,
 		];
 	}
 
