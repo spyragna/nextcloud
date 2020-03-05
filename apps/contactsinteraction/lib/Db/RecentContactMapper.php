@@ -28,6 +28,7 @@ namespace OCA\ContactsInteraction\Db;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\IDBConnection;
+use OCP\IUser;
 
 class RecentContactMapper extends QBMapper {
 
@@ -68,6 +69,40 @@ class RecentContactMapper extends QBMapper {
 			->andWhere($qb->expr()->eq('actor_uid', $qb->createNamedParameter($uid)));
 
 		return $this->findEntity($select);
+	}
+
+	/**
+	 * @param IUser $user
+	 * @param string|null $uid
+	 * @param string|null $email
+	 * @param string|null $cloudId
+	 *
+	 * @return RecentContact[]
+	 */
+	public function findMatch(IUser $user,
+							  ?string $uid,
+							  ?string $email,
+							  ?string $cloudId): array {
+		$qb = $this->db->getQueryBuilder();
+
+		$or = $qb->expr()->orX();
+		if ($uid !== null) {
+			$or->add($qb->expr()->eq('uid', $qb->createNamedParameter($uid)));
+		}
+		if ($email !== null) {
+			$or->add($qb->expr()->eq('email', $qb->createNamedParameter($email)));
+		}
+		if ($cloudId !== null) {
+			$or->add($qb->expr()->eq('uid', $qb->createNamedParameter($cloudId)));
+		}
+
+		$select = $qb
+			->select('*')
+			->from($this->getTableName())
+			->where($or)
+			->andWhere($qb->expr()->eq('actor_uid', $qb->createNamedParameter($user->getUID())));
+
+		return $this->findEntities($select);
 	}
 
 }

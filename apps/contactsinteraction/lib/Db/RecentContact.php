@@ -26,9 +26,6 @@ declare(strict_types=1);
 namespace OCA\ContactsInteraction\Db;
 
 use OCP\AppFramework\Db\Entity;
-use OCP\Contacts\Events\ContactInteractedWithEvent;
-use Sabre\VObject\Component\VCard;
-use Sabre\VObject\UUIDUtil;
 
 /**
  * @method void setActorUid(string $uid)
@@ -71,39 +68,6 @@ class RecentContact extends Entity {
 		$this->addType('federatedCloudId', 'string');
 		$this->addType('card', 'string');
 		$this->addType('lastContact', 'int');
-	}
-
-	public static function fromEvent(ContactInteractedWithEvent $event, int $now): self {
-		$contact = new self();
-		$contact->setActorUid($event->getActor()->getUID());
-		if ($event->getUid() !== null) {
-			$contact->setUid($event->getUid());
-		}
-		if ($event->getEmail() !== null) {
-			$contact->setEmail($event->getEmail());
-		}
-		if ($event->getFederatedCloudId() !== null) {
-			$contact->setFederatedCloudId($event->getFederatedCloudId());
-		}
-		$contact->setLastContact($now);
-		$contact->setCard($contact->generateCard());
-		return $contact;
-	}
-
-	private function generateCard(): string {
-		$props = [
-			'URI' => UUIDUtil::getUUID(),
-			'FN' => $this->getEmail() ?? $this->getUid() ?? $this->getFederatedCloudId(),
-		];
-
-		if ($this->getEmail() !== null) {
-			$props['EMAIL'] = $this->getEmail();
-		}
-		if ($this->getFederatedCloudId() !== null) {
-			$props['CLOUD'] = $this->getFederatedCloudId();
-		}
-
-		return (new VCard($props))->serialize();
 	}
 
 }

@@ -25,6 +25,7 @@ class ComposerStaticInitContactsInteraction
         'OCA\\ContactsInteraction\\AddressBookProvider' => __DIR__ . '/..' . '/../lib/AddressBookProvider.php',
         'OCA\\ContactsInteraction\\AppInfo\\Application' => __DIR__ . '/..' . '/../lib/AppInfo/Application.php',
         'OCA\\ContactsInteraction\\Card' => __DIR__ . '/..' . '/../lib/Card.php',
+        'OCA\\ContactsInteraction\\Db\\CardSearchDao' => __DIR__ . '/..' . '/../lib/Db/CardSearchDao.php',
         'OCA\\ContactsInteraction\\Db\\RecentContact' => __DIR__ . '/..' . '/../lib/Db/RecentContact.php',
         'OCA\\ContactsInteraction\\Db\\RecentContactMapper' => __DIR__ . '/..' . '/../lib/Db/RecentContactMapper.php',
         'OCA\\ContactsInteraction\\Listeners\\ContactInteractionListener' => __DIR__ . '/..' . '/../lib/Listeners/ContactInteractionListener.php',

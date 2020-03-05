@@ -25,6 +25,7 @@ declare(strict_types=1);
 
 namespace OCA\ContactsInteraction\Listeners;
 
+use OCA\ContactsInteraction\Db\CardSearchDao;
 use OCA\ContactsInteraction\Db\RecentContact;
 use OCA\ContactsInteraction\Db\RecentContactMapper;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -32,11 +33,16 @@ use OCP\Contacts\Events\ContactInteractedWithEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\ILogger;
+use Sabre\VObject\Component\VCard;
+use Sabre\VObject\UUIDUtil;
 
 class ContactInteractionListener implements IEventListener {
 
 	/** @var RecentContactMapper */
 	private $mapper;
+
+	/** @var CardSearchDao */
+	private $cardSearchDao;
 
 	/** @var ITimeFactory */
 	private $timeFactory;
@@ -45,9 +51,11 @@ class ContactInteractionListener implements IEventListener {
 	private $logger;
 
 	public function __construct(RecentContactMapper $mapper,
+								CardSearchDao $cardSearchDao,
 								ITimeFactory $timeFactory,
 								ILogger $logger) {
 		$this->mapper = $mapper;
+		$this->cardSearchDao = $cardSearchDao;
 		$this->timeFactory = $timeFactory;
 		$this->logger = $logger;
 	}
@@ -62,9 +70,66 @@ class ContactInteractionListener implements IEventListener {
 			return;
 		}
 
-		// TODO: check if the there is an existing contact, then just copy the card and only
-		//       create a new card when this data is new
-		$this->mapper->insert(RecentContact::fromEvent($event, $this->timeFactory->getTime()));
+		$existing = $this->mapper->findMatch(
+			$event->getActor(),
+			$event->getUid(),
+			$event->getEmail(),
+			$event->getFederatedCloudId()
+		);
+		if (!empty($existing)) {
+			$now = $this->timeFactory->getTime();
+			foreach($existing as $c) {
+				$c->setLastContact($now);
+				$this->mapper->update($c);
+			}
+
+			return;
+		}
+
+		$contact = new RecentContact();
+		$contact->setActorUid($event->getActor()->getUID());
+		if ($event->getUid() !== null) {
+			$contact->setUid($event->getUid());
+		}
+		if ($event->getEmail() !== null) {
+			$contact->setEmail($event->getEmail());
+		}
+		if ($event->getFederatedCloudId() !== null) {
+			$contact->setFederatedCloudId($event->getFederatedCloudId());
+		}
+		$contact->setLastContact($this->timeFactory->getTime());
+
+		$copy = $this->cardSearchDao->findExisting(
+			$event->getActor(),
+			$event->getUid(),
+			$event->getEmail(),
+			$event->getFederatedCloudId()
+		);
+		if ($copy !== null) {
+			$contact->setCard($copy);
+		} else {
+			$contact->setCard($this->generateCard($contact));
+		}
+		$this->mapper->insert($contact);
+	}
+
+	private function generateCard(RecentContact $contact): string {
+		$props = [
+			'URI' => UUIDUtil::getUUID(),
+			'FN' => $contact->getEmail() ?? $contact->getUid() ?? $contact->getFederatedCloudId(),
+		];
+
+		if ($contact->getUid() !== null) {
+			$props['X-NEXTCLOUD-UID'] = $contact->getUid();
+		}
+		if ($contact->getEmail() !== null) {
+			$props['EMAIL'] = $contact->getEmail();
+		}
+		if ($contact->getFederatedCloudId() !== null) {
+			$props['CLOUD'] = $contact->getFederatedCloudId();
+		}
+
+		return (new VCard($props))->serialize();
 	}
 
 }
