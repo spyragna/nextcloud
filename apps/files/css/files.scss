@@ -349,6 +349,9 @@ table td.filename .thumbnail {
 	position: absolute;
 	z-index: 4;
 }
+p.name .thumbnail {
+	cursor: default !important;
+}
 
 // Show slight border around previews for images, txt, etc.
 table tr[data-has-preview='true'] .thumbnail {
