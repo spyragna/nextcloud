@@ -27,8 +27,6 @@ namespace OC\Core\Command\App;
 
 use OC\Core\Command\Base;
 use OCP\App\IAppManager;
-use OCP\Contacts\Events\ContactInteractedWithEvent;
-use OCP\EventDispatcher\IEventDispatcher;
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -98,12 +96,6 @@ class ListApps extends Base {
 		}
 
 		$this->writeAppList($input, $output, $apps);
-
-		/** @var IEventDispatcher $d */
-		$d = \OC::$server->query(IEventDispatcher::class);
-		$e = new ContactInteractedWithEvent(\OC::$server->getUserManager()->get('admin'));
-		$e->setEmail('test@user.domain');
-		$d->dispatchTyped($e);
 	}
 
 	/**

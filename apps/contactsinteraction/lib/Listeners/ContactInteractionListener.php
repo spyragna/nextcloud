@@ -25,6 +25,7 @@ declare(strict_types=1);
 
 namespace OCA\ContactsInteraction\Listeners;
 
+use OCA\ContactsInteraction\AppInfo\Application;
 use OCA\ContactsInteraction\Db\CardSearchDao;
 use OCA\ContactsInteraction\Db\RecentContact;
 use OCA\ContactsInteraction\Db\RecentContactMapper;
@@ -32,9 +33,12 @@ use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Contacts\Events\ContactInteractedWithEvent;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
+use OCP\IL10N;
 use OCP\ILogger;
 use Sabre\VObject\Component\VCard;
+use Sabre\VObject\Reader;
 use Sabre\VObject\UUIDUtil;
+use Throwable;
 
 class ContactInteractionListener implements IEventListener {
 
@@ -47,16 +51,21 @@ class ContactInteractionListener implements IEventListener {
 	/** @var ITimeFactory */
 	private $timeFactory;
 
+	/** @var IL10N */
+	private $l10n;
+
 	/** @var ILogger */
 	private $logger;
 
 	public function __construct(RecentContactMapper $mapper,
 								CardSearchDao $cardSearchDao,
 								ITimeFactory $timeFactory,
+								IL10N $l10nFactory,
 								ILogger $logger) {
 		$this->mapper = $mapper;
 		$this->cardSearchDao = $cardSearchDao;
 		$this->timeFactory = $timeFactory;
+		$this->l10n = $l10nFactory;
 		$this->logger = $logger;
 	}
 
@@ -78,7 +87,7 @@ class ContactInteractionListener implements IEventListener {
 		);
 		if (!empty($existing)) {
 			$now = $this->timeFactory->getTime();
-			foreach($existing as $c) {
+			foreach ($existing as $c) {
 				$c->setLastContact($now);
 				$this->mapper->update($c);
 			}
@@ -106,7 +115,17 @@ class ContactInteractionListener implements IEventListener {
 			$event->getFederatedCloudId()
 		);
 		if ($copy !== null) {
-			$contact->setCard($copy);
+			try {
+				$parsed = Reader::read($copy, Reader::OPTION_FORGIVING);
+				$parsed->CATEGORIES = $this->l10n->t('Recently contacted');
+				$contact->setCard($parsed->serialize());
+			} catch (Throwable $e) {
+				$this->logger->logException($e, [
+					'message' => 'Could not parse card to add recent category: ' . $e->getMessage(),
+					'level' => ILogger::WARN,
+				]);
+				$contact->setCard($copy);
+			}
 		} else {
 			$contact->setCard($this->generateCard($contact));
 		}
@@ -117,6 +136,7 @@ class ContactInteractionListener implements IEventListener {
 		$props = [
 			'URI' => UUIDUtil::getUUID(),
 			'FN' => $contact->getEmail() ?? $contact->getUid() ?? $contact->getFederatedCloudId(),
+			'CATEGORIES' => $this->l10n->t('Recently contacted'),
 		];
 
 		if ($contact->getUid() !== null) {
