@@ -44,6 +44,10 @@ $tmpl->assign('showgridview', $showgridview && !$isIE);
 $eventDispatcher->dispatch('\OCP\Collaboration\Resources::loadAdditionalScripts', new GenericEvent());
 $eventDispatcher->dispatch(LoadAdditionalScriptsEvent::class, new LoadAdditionalScriptsEvent());
 $eventDispatcher->dispatch(LoadSidebar::class, new LoadSidebar());
-$eventDispatcher->dispatch(LoadViewer::class, new LoadViewer());
+
+// Load Viewer scripts
+if (class_exists(LoadViewer::class)) {
+	$eventDispatcher->dispatchTyped(new LoadViewer());
+}
 
 $tmpl->printPage();

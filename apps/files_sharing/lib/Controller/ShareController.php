@@ -455,7 +455,10 @@ class ShareController extends AuthPublicShareController {
 			\OCP\Util::addScript('files', 'keyboardshortcuts');
 			\OCP\Util::addScript('files', 'operationprogressbar');
 
-			$this->eventDispatcher->dispatch(LoadViewer::class, new LoadViewer());
+			// Load Viewer scripts
+			if (class_exists(LoadViewer::class)) {
+				$this->eventDispatcher->dispatchTyped(new LoadViewer());
+			}
 		}
 
 		// OpenGraph Support: http://ogp.me/
